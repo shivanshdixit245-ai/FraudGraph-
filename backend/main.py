@@ -169,7 +169,8 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "http://localhost:5175",
-        "https://fraudgraph.vercel.app"
+        "https://fraudgraph.vercel.app",
+        "https://fraud-graph-gamma.vercel.app"
     ],
     allow_origin_regex="https://.*\.vercel\.app",
     allow_credentials=True,
