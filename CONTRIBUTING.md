@@ -1,0 +1,3 @@
+# Contributing to FraudGraph
+
+FraudGraph is organized into a modular structure to separate concerns between the machine learning pipeline, the real-time backend, and the interactive frontend. The `backend/` directory contains the FastAPI server, WebSocket handlers, and service layers for alerting and scoring. The `frontend/` directory houses the React components and D3.js visualization logic. Machine learning models and scripts for training and inference are located in `backend/ml/` and `scripts/`. We welcome contributions that improve model performance, visualization clarity, or system scalability.

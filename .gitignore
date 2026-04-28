@@ -1,0 +1,13 @@
+node_modules/
+__pycache__/
+*.pt
+*.csv
+.env
+.env.local
+data/raw/
+data/processed/
+dist/
+venv/
+.pytest_cache/
+*.log
+.DS_Store

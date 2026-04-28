@@ -1,0 +1,529 @@
+{
+  "event_id": "fraud_ring_001",
+  "title": "Coordinated Ring Expansion",
+  "description": "Detection of 4 linked accounts showing progressive risk propagation across shared device clusters.",
+  "duration_seconds": 3600,
+  "node_count": 4,
+  "keyframes": [
+    {
+      "timestamp": "2026-04-27T20:13:44.875856",
+      "elapsed_seconds": 180,
+      "nodes": [
+        {
+          "id": 0,
+          "risk": 0.1,
+          "is_flagged": false
+        },
+        {
+          "id": 1,
+          "risk": 0.1,
+          "is_flagged": false
+        },
+        {
+          "id": 8,
+          "risk": 0.15,
+          "is_flagged": false
+        },
+        {
+          "id": 12,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:16:44.875856",
+      "elapsed_seconds": 360,
+      "nodes": [
+        {
+          "id": 0,
+          "risk": 0.1,
+          "is_flagged": false
+        },
+        {
+          "id": 1,
+          "risk": 0.1,
+          "is_flagged": false
+        },
+        {
+          "id": 8,
+          "risk": 0.15,
+          "is_flagged": false
+        },
+        {
+          "id": 12,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:19:44.875856",
+      "elapsed_seconds": 540,
+      "nodes": [
+        {
+          "id": 0,
+          "risk": 0.1,
+          "is_flagged": false
+        },
+        {
+          "id": 1,
+          "risk": 0.1,
+          "is_flagged": false
+        },
+        {
+          "id": 8,
+          "risk": 0.15,
+          "is_flagged": false
+        },
+        {
+          "id": 12,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:22:44.875856",
+      "elapsed_seconds": 720,
+      "nodes": [
+        {
+          "id": 0,
+          "risk": 0.1,
+          "is_flagged": false
+        },
+        {
+          "id": 1,
+          "risk": 0.1,
+          "is_flagged": false
+        },
+        {
+          "id": 8,
+          "risk": 0.15,
+          "is_flagged": false
+        },
+        {
+          "id": 12,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:25:44.875856",
+      "elapsed_seconds": 900,
+      "nodes": [
+        {
+          "id": 0,
+          "risk": 0.1,
+          "is_flagged": false
+        },
+        {
+          "id": 1,
+          "risk": 0.1,
+          "is_flagged": false
+        },
+        {
+          "id": 8,
+          "risk": 0.15,
+          "is_flagged": false
+        },
+        {
+          "id": 12,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:28:44.875856",
+      "elapsed_seconds": 1080,
+      "nodes": [
+        {
+          "id": 0,
+          "risk": 0.2,
+          "is_flagged": false
+        },
+        {
+          "id": 1,
+          "risk": 0.1,
+          "is_flagged": false
+        },
+        {
+          "id": 8,
+          "risk": 0.15,
+          "is_flagged": false
+        },
+        {
+          "id": 12,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:31:44.875856",
+      "elapsed_seconds": 1260,
+      "nodes": [
+        {
+          "id": 0,
+          "risk": 0.3,
+          "is_flagged": false
+        },
+        {
+          "id": 1,
+          "risk": 0.1,
+          "is_flagged": false
+        },
+        {
+          "id": 8,
+          "risk": 0.15,
+          "is_flagged": false
+        },
+        {
+          "id": 12,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:34:44.875856",
+      "elapsed_seconds": 1440,
+      "nodes": [
+        {
+          "id": 0,
+          "risk": 0.4,
+          "is_flagged": false
+        },
+        {
+          "id": 1,
+          "risk": 0.1,
+          "is_flagged": false
+        },
+        {
+          "id": 8,
+          "risk": 0.15,
+          "is_flagged": false
+        },
+        {
+          "id": 12,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:37:44.875856",
+      "elapsed_seconds": 1620,
+      "nodes": [
+        {
+          "id": 0,
+          "risk": 0.5,
+          "is_flagged": false
+        },
+        {
+          "id": 1,
+          "risk": 0.1,
+          "is_flagged": false
+        },
+        {
+          "id": 8,
+          "risk": 0.15,
+          "is_flagged": false
+        },
+        {
+          "id": 12,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:40:44.875856",
+      "elapsed_seconds": 1800,
+      "nodes": [
+        {
+          "id": 0,
+          "risk": 0.6,
+          "is_flagged": false
+        },
+        {
+          "id": 1,
+          "risk": 0.1,
+          "is_flagged": false
+        },
+        {
+          "id": 8,
+          "risk": 0.15,
+          "is_flagged": false
+        },
+        {
+          "id": 12,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:43:44.875856",
+      "elapsed_seconds": 1980,
+      "nodes": [
+        {
+          "id": 0,
+          "risk": 0.6,
+          "is_flagged": false
+        },
+        {
+          "id": 1,
+          "risk": 0.26,
+          "is_flagged": false
+        },
+        {
+          "id": 8,
+          "risk": 0.3,
+          "is_flagged": false
+        },
+        {
+          "id": 12,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:46:44.875856",
+      "elapsed_seconds": 2160,
+      "nodes": [
+        {
+          "id": 0,
+          "risk": 0.6,
+          "is_flagged": false
+        },
+        {
+          "id": 1,
+          "risk": 0.42,
+          "is_flagged": false
+        },
+        {
+          "id": 8,
+          "risk": 0.45,
+          "is_flagged": false
+        },
+        {
+          "id": 12,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:49:44.877496",
+      "elapsed_seconds": 2340,
+      "nodes": [
+        {
+          "id": 0,
+          "risk": 0.6,
+          "is_flagged": false
+        },
+        {
+          "id": 1,
+          "risk": 0.58,
+          "is_flagged": false
+        },
+        {
+          "id": 8,
+          "risk": 0.6,
+          "is_flagged": false
+        },
+        {
+          "id": 12,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:52:44.877496",
+      "elapsed_seconds": 2520,
+      "nodes": [
+        {
+          "id": 0,
+          "risk": 0.6,
+          "is_flagged": false
+        },
+        {
+          "id": 1,
+          "risk": 0.74,
+          "is_flagged": false
+        },
+        {
+          "id": 8,
+          "risk": 0.75,
+          "is_flagged": false
+        },
+        {
+          "id": 12,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:55:44.877496",
+      "elapsed_seconds": 2700,
+      "nodes": [
+        {
+          "id": 0,
+          "risk": 0.6,
+          "is_flagged": false
+        },
+        {
+          "id": 1,
+          "risk": 0.9,
+          "is_flagged": true
+        },
+        {
+          "id": 8,
+          "risk": 0.9,
+          "is_flagged": true
+        },
+        {
+          "id": 12,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:58:44.877496",
+      "elapsed_seconds": 2880,
+      "nodes": [
+        {
+          "id": 0,
+          "risk": 0.6,
+          "is_flagged": false
+        },
+        {
+          "id": 1,
+          "risk": 0.9,
+          "is_flagged": true
+        },
+        {
+          "id": 8,
+          "risk": 0.9,
+          "is_flagged": true
+        },
+        {
+          "id": 12,
+          "risk": 0.3,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T21:01:44.877496",
+      "elapsed_seconds": 3060,
+      "nodes": [
+        {
+          "id": 0,
+          "risk": 0.6,
+          "is_flagged": false
+        },
+        {
+          "id": 1,
+          "risk": 0.9,
+          "is_flagged": true
+        },
+        {
+          "id": 8,
+          "risk": 0.9,
+          "is_flagged": true
+        },
+        {
+          "id": 12,
+          "risk": 0.5,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T21:04:44.877496",
+      "elapsed_seconds": 3240,
+      "nodes": [
+        {
+          "id": 0,
+          "risk": 0.6,
+          "is_flagged": false
+        },
+        {
+          "id": 1,
+          "risk": 0.9,
+          "is_flagged": true
+        },
+        {
+          "id": 8,
+          "risk": 0.9,
+          "is_flagged": true
+        },
+        {
+          "id": 12,
+          "risk": 0.7,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T21:07:44.877496",
+      "elapsed_seconds": 3420,
+      "nodes": [
+        {
+          "id": 0,
+          "risk": 0.6,
+          "is_flagged": false
+        },
+        {
+          "id": 1,
+          "risk": 0.9,
+          "is_flagged": true
+        },
+        {
+          "id": 8,
+          "risk": 0.9,
+          "is_flagged": true
+        },
+        {
+          "id": 12,
+          "risk": 0.9,
+          "is_flagged": true
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T21:10:44.877496",
+      "elapsed_seconds": 3600,
+      "nodes": [
+        {
+          "id": 0,
+          "risk": 0.6,
+          "is_flagged": false
+        },
+        {
+          "id": 1,
+          "risk": 0.9,
+          "is_flagged": true
+        },
+        {
+          "id": 8,
+          "risk": 0.9,
+          "is_flagged": true
+        },
+        {
+          "id": 12,
+          "risk": 1.1,
+          "is_flagged": true
+        }
+      ]
+    }
+  ]
+}

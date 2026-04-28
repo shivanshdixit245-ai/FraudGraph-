@@ -1,0 +1,174 @@
+{
+  "event_id": "account_takeover_001",
+  "title": "Suspicious Login Drift",
+  "description": "Node 3 shows a sudden change in device fingerprint followed by high-velocity transaction burst.",
+  "duration_seconds": 1800,
+  "node_count": 1,
+  "keyframes": [
+    {
+      "timestamp": "2026-04-27T20:12:44.890711",
+      "elapsed_seconds": 120,
+      "nodes": [
+        {
+          "id": 3,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:14:44.890711",
+      "elapsed_seconds": 240,
+      "nodes": [
+        {
+          "id": 3,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:16:44.890711",
+      "elapsed_seconds": 360,
+      "nodes": [
+        {
+          "id": 3,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:18:44.890711",
+      "elapsed_seconds": 480,
+      "nodes": [
+        {
+          "id": 3,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:20:44.890711",
+      "elapsed_seconds": 600,
+      "nodes": [
+        {
+          "id": 3,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:22:44.890711",
+      "elapsed_seconds": 720,
+      "nodes": [
+        {
+          "id": 3,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:24:44.890711",
+      "elapsed_seconds": 840,
+      "nodes": [
+        {
+          "id": 3,
+          "risk": 0.1,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:26:44.890711",
+      "elapsed_seconds": 960,
+      "nodes": [
+        {
+          "id": 3,
+          "risk": 0.22,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:28:44.890711",
+      "elapsed_seconds": 1080,
+      "nodes": [
+        {
+          "id": 3,
+          "risk": 0.34,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:30:44.890711",
+      "elapsed_seconds": 1200,
+      "nodes": [
+        {
+          "id": 3,
+          "risk": 0.46,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:32:44.890711",
+      "elapsed_seconds": 1320,
+      "nodes": [
+        {
+          "id": 3,
+          "risk": 0.58,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:34:44.890711",
+      "elapsed_seconds": 1440,
+      "nodes": [
+        {
+          "id": 3,
+          "risk": 0.7,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:36:44.890711",
+      "elapsed_seconds": 1560,
+      "nodes": [
+        {
+          "id": 3,
+          "risk": 0.82,
+          "is_flagged": true
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:38:44.890711",
+      "elapsed_seconds": 1680,
+      "nodes": [
+        {
+          "id": 3,
+          "risk": 0.94,
+          "is_flagged": true
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:40:44.890711",
+      "elapsed_seconds": 1800,
+      "nodes": [
+        {
+          "id": 3,
+          "risk": 1.06,
+          "is_flagged": true
+        }
+      ]
+    }
+  ]
+}

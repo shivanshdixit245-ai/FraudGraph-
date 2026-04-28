@@ -1,0 +1,119 @@
+{
+  "event_id": "velocity_fraud_001",
+  "title": "Card Testing Pattern",
+  "description": "Rapid micro-transaction burst on node 10, typical of automated card testing scripts.",
+  "duration_seconds": 600,
+  "node_count": 1,
+  "keyframes": [
+    {
+      "timestamp": "2026-04-27T20:11:44.914003",
+      "elapsed_seconds": 60,
+      "nodes": [
+        {
+          "id": 10,
+          "risk": 0.2,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:12:44.914003",
+      "elapsed_seconds": 120,
+      "nodes": [
+        {
+          "id": 10,
+          "risk": 0.2,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:13:44.914003",
+      "elapsed_seconds": 180,
+      "nodes": [
+        {
+          "id": 10,
+          "risk": 0.2,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:14:44.914003",
+      "elapsed_seconds": 240,
+      "nodes": [
+        {
+          "id": 10,
+          "risk": 0.2,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:15:44.914003",
+      "elapsed_seconds": 300,
+      "nodes": [
+        {
+          "id": 10,
+          "risk": 0.35,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:16:44.914003",
+      "elapsed_seconds": 360,
+      "nodes": [
+        {
+          "id": 10,
+          "risk": 0.5,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:17:44.914003",
+      "elapsed_seconds": 420,
+      "nodes": [
+        {
+          "id": 10,
+          "risk": 0.65,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:18:44.914003",
+      "elapsed_seconds": 480,
+      "nodes": [
+        {
+          "id": 10,
+          "risk": 0.8,
+          "is_flagged": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:19:44.914003",
+      "elapsed_seconds": 540,
+      "nodes": [
+        {
+          "id": 10,
+          "risk": 0.95,
+          "is_flagged": true
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27T20:20:44.914003",
+      "elapsed_seconds": 600,
+      "nodes": [
+        {
+          "id": 10,
+          "risk": 1.1,
+          "is_flagged": true
+        }
+      ]
+    }
+  ]
+}
