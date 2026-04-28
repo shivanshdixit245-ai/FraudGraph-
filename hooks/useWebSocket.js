@@ -25,9 +25,16 @@ export default function useWebSocket() {
     let isMounted = true;
 
     const connect = () => {
-      if (wsRef.current?.readyState === WebSocket.OPEN) return;
+      // Don't connect if already open OR currently connecting
+      if (wsRef.current && (
+        wsRef.current.readyState === WebSocket.OPEN || 
+        wsRef.current.readyState === WebSocket.CONNECTING
+      )) return;
 
-      setWsStatus('reconnecting');
+      if (wsStatus === 'disconnected') {
+        setWsStatus('reconnecting');
+      }
+      
       const ws = new WebSocket(WS_URL);
       wsRef.current = ws;
 

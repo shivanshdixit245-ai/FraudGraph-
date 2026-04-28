@@ -84,41 +84,57 @@ export default function ForceGraph({
 
     console.log(`[ForceGraph] Rendering with ${nodes.length} nodes, ${edges.length} edges. selectedNodeId: ${selectedNodeId}`);
 
-    // 2. Reconcile Data to preserve D3 physics state (x, y, vx, vy, fx, fy)
-    let isTopologyChanged = false;
+    // 2. Reconcile Data
     const oldNodesMap = new Map(graphDataRef.current.nodes.map(n => [n.id, n]));
-
+    
     const newNodes = nodes.map(n => {
       const old = oldNodesMap.get(n.id);
-      if (!old) {
-        isTopologyChanged = true;
-        return { ...n }; // Purely new node
+      // If node has backend coords, we can use them as initial or fixed positions
+      const hasBackendCoords = typeof n.x === 'number' && typeof n.y === 'number';
+      
+      if (old) {
+        return { 
+          ...old, 
+          ...n, 
+          // Preserve velocity but allow backend coords to "pull" if we want
+          x: old.x, 
+          y: old.y,
+          vx: old.vx, 
+          vy: old.vy, 
+          fx: old.fx, 
+          fy: old.fy 
+        };
       }
-      return { ...old, ...n, x: old.x, y: old.y, vx: old.vx, vy: old.vy, fx: old.fx, fy: old.fy };
+      
+      // New node: use backend coords if available, otherwise random near center
+      return { 
+        ...n, 
+        x: hasBackendCoords ? n.x : width / 2 + (Math.random() - 0.5) * 100,
+        y: hasBackendCoords ? n.y : height / 2 + (Math.random() - 0.5) * 100
+      };
     });
 
+    // Create a map of the NEW node objects for link rebinding
+    const nodesMap = new Map(newNodes.map(n => [n.id, n]));
+
     const newEdges = edges.map(e => {
-      const sourceId = e.source?.id || e.source;
-      const targetId = e.target?.id || e.target;
-      const oldLink = graphDataRef.current.links.find(l => 
-        (l.source.id || l.source) === sourceId && 
-        (l.target.id || l.target) === targetId
-      );
+      const sourceId = typeof e.source === 'object' ? e.source.id : e.source;
+      const targetId = typeof e.target === 'object' ? e.target.id : e.target;
       
-      if (oldLink) {
-        return { ...oldLink, ...e, source: oldLink.source, target: oldLink.target };
-      }
-      
-      isTopologyChanged = true;
-      return { ...e, source: sourceId, target: targetId };
+      // IMPORTANT: D3 forceLink needs the ACTUAL node objects or IDs it can resolve
+      return { 
+        ...e, 
+        id: e.id || `${sourceId}-${targetId}`,
+        source: nodesMap.get(sourceId) || sourceId, 
+        target: nodesMap.get(targetId) || targetId 
+      };
     });
 
     graphDataRef.current = { nodes: newNodes, links: newEdges };
-    const nodesMap = new Map(newNodes.map(n => [n.id, n]));
 
     // 3. Render Links
     const link = linkGroup.selectAll('.edge')
-      .data(newEdges, d => d.id || `${d.source.id || d.source}-${d.target.id || d.target}`);
+      .data(newEdges, d => d.id);
 
     link.exit().remove();
 
@@ -130,19 +146,15 @@ export default function ForceGraph({
 
     const mergedLinks = linkEnter.merge(link);
 
-    // Apply color logic to edges using native CSS transitions
     mergedLinks
       .style('transition', 'stroke 0.5s ease')
       .style('stroke', d => {
-        const sourceId = d.source.id || d.source;
-        const targetId = d.target.id || d.target;
-        const srcNode = nodesMap.get(sourceId) || {};
-        const tgtNode = nodesMap.get(targetId) || {};
+        const srcNode = nodesMap.get(d.source.id || d.source) || {};
+        const tgtNode = nodesMap.get(d.target.id || d.target) || {};
         const maxRisk = Math.max(srcNode.risk || 0, tgtNode.risk || 0);
-        
-        if (maxRisk > 0.7) return '#E24B4A'; // High Risk
-        if (maxRisk >= 0.3) return '#EF9F27'; // Med Risk
-        return '#1D9E75'; // Safe
+        if (maxRisk > 0.7) return '#E24B4A';
+        if (maxRisk >= 0.3) return '#EF9F27';
+        return '#1D9E75';
       });
 
     // 4. Render Nodes
@@ -166,11 +178,9 @@ export default function ForceGraph({
         })
         .on('end', (event, d) => {
           if (!event.active) simulation.alphaTarget(0);
-          // By leaving d.fx and d.fy set, the node remains pinned
         })
       )
       .on('dblclick', (event, d) => {
-        // Double click unpins the node
         d.fx = null;
         d.fy = null;
         simulation.alpha(0.1).restart();
@@ -179,43 +189,18 @@ export default function ForceGraph({
         if (onNodeClick) onNodeClick(d);
       })
       .on('mouseenter', function (event, d) {
-        if (d.risk <= 0.7) {
-          d3.select(this).select('.node-label').style('opacity', 1);
-        }
+        if (d.risk <= 0.7) d3.select(this).select('.node-label').style('opacity', 1);
       })
       .on('mouseleave', function (event, d) {
-        if (d.risk <= 0.7) {
-          d3.select(this).select('.node-label').style('opacity', 0);
-        }
+        if (d.risk <= 0.7) d3.select(this).select('.node-label').style('opacity', 0);
       });
 
-    // Selection ring (Blue)
-    nodeEnter.append('circle')
-      .attr('class', 'node-ring')
-      .style('fill', 'none')
-      .style('stroke', '#388ADD')
-      .style('stroke-width', 2)
-      .style('transition', 'r 0.5s ease, opacity 0.3s ease');
-
-    // Main Node Circle
-    nodeEnter.append('circle')
-      .attr('class', 'node-circle')
-      .style('transition', 'fill 0.5s ease, r 0.5s ease, filter 0.5s ease');
-
-    // Node Label
-    nodeEnter.append('text')
-      .attr('class', 'node-label')
-      .attr('dy', 22)
-      .attr('text-anchor', 'middle')
-      .style('fill', '#E6EDF3')
-      .style('font-family', 'Inter')
-      .style('font-size', '11px')
-      .style('pointer-events', 'none')
-      .style('transition', 'opacity 0.3s ease');
+    nodeEnter.append('circle').attr('class', 'node-ring').style('fill', 'none').style('stroke', '#388ADD').style('stroke-width', 2);
+    nodeEnter.append('circle').attr('class', 'node-circle');
+    nodeEnter.append('text').attr('class', 'node-label').attr('dy', 22).attr('text-anchor', 'middle');
 
     const mergedNodes = nodeEnter.merge(node);
 
-    // Apply data-driven dynamic styles
     mergedNodes.select('.node-circle')
       .attr('r', d => d.risk > 0.7 ? 10 : d.risk >= 0.3 ? 8 : 7)
       .style('fill', d => d.risk > 0.7 ? '#FF3B30' : d.risk >= 0.3 ? '#EF9F27' : '#1D9E75')
@@ -229,15 +214,13 @@ export default function ForceGraph({
       .text(d => d.label || d.id)
       .style('opacity', d => d.risk > 0.7 ? 1 : 0);
 
-    // 5. Restart Simulation safely
+    // 5. Update Simulation and Tick
     simulation.nodes(newNodes);
     simulation.force('link').links(newEdges);
+    
+    // If we have many new nodes or it's the first run, give it a kick
+    simulation.alpha(0.2).restart();
 
-    if (isTopologyChanged) {
-      simulation.alpha(0.3).restart();
-    }
-
-    // Tick handler for physical layout updates
     simulation.on('tick', () => {
       mergedLinks
         .attr('x1', d => d.source.x)
