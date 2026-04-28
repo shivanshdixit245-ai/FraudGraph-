@@ -35,7 +35,9 @@ def test_feature_shape(tmp_path):
         'card1': [1, 2, 1, 3, 4],
         'TransactionDT': range(5),
         'isFraud': [0] * 5,
-        'addr1': [100] * 5
+        'addr1': [100] * 5,
+        'dist1': [10.0] * 5,
+        'P_emaildomain': ['gmail.com'] * 5
     })
     tx_data.to_csv(tx_path, index=False)
     
@@ -51,7 +53,9 @@ def test_no_nan(tmp_path):
         'card1': [1, 2, 1, 3, 4],
         'TransactionDT': range(5),
         'isFraud': [0, 0, 0, 1, 0],
-        'addr1': [100, 100, None, 100, 100]
+        'addr1': [100, 100, None, 100, 100],
+        'dist1': [None, 10.0, 10.0, 10.0, 10.0],
+        'P_emaildomain': ['gmail.com', 'yahoo.com', None, 'gmail.com', 'gmail.com']
     })
     tx_data.to_csv(tx_path, index=False)
     
@@ -66,7 +70,9 @@ def test_edge_bounds(tmp_path):
         'card1': [1, 2, 1, 2, 3], # Will create shared edges
         'TransactionDT': range(5),
         'isFraud': [0] * 5,
-        'addr1': [100] * 5 # Shared addr creates edges
+        'addr1': [100] * 5, # Shared addr creates edges
+        'dist1': [10.0] * 5,
+        'P_emaildomain': ['gmail.com'] * 5
     })
     tx_data.to_csv(tx_path, index=False)
     

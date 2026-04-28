@@ -69,14 +69,10 @@ def chat_with_analyst(payload: ChatRequest, request: Request):
     }
 
     try:
-        loop = asyncio.get_event_loop()
-        response = await loop.run_in_executor(
-            None,
-            lambda: req_lib.post(
-                f"{OLLAMA_URL}/api/generate",
-                json=ollama_payload,
-                timeout=30
-            )
+        response = req_lib.post(
+            f"{OLLAMA_URL}/api/generate",
+            json=ollama_payload,
+            timeout=30
         )
         
         response.raise_for_status()

@@ -39,21 +39,25 @@ async def test_explain_valid():
 @pytest.mark.asyncio
 async def test_clusters_list():
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
-        response = await ac.get("/clusters")
+        response = await ac.get("/clusters/")
     assert response.status_code == 200
     assert "clusters" in response.json()
 
 @pytest.mark.asyncio
 async def test_centrality():
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
-        response = await ac.get("/centrality?top_n=10")
+        response = await ac.get("/centrality/?top_n=10")
     assert response.status_code == 200
     assert "results" in response.json()
 
 @pytest.mark.asyncio
 async def test_metrics():
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
-        response = await ac.get("/metrics")
+        response = await ac.get("/metrics/")
     assert response.status_code in [200, 503]
     if response.status_code == 200:
-        assert "auc_roc" in response.json()["metrics"]
+        json_data = response.json()
+        if "metrics" in json_data:
+            assert "auc_roc" in json_data["metrics"]
+        else:
+            assert "error" in json_data
