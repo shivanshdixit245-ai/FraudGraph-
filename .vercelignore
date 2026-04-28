@@ -1,0 +1,10 @@
+backend/
+data/
+scripts/
+tests/
+venv/
+.pytest_cache/
+*.py
+*.pt
+*.csv
+*.bat
