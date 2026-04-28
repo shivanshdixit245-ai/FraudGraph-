@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.optim as optim
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score
-from .model import FraudGNN, save_model
+from ml.model import FraudGNN, save_model
 
 def train(data, epochs=200, lr=0.005, weight_decay=0.0005, patience=20):
     """

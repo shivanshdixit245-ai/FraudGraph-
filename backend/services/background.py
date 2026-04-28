@@ -1,6 +1,6 @@
 import asyncio
 import time
-from ..ml.centrality import compute_centrality
+from ml.centrality import compute_centrality
 
 async def refresh_centrality_loop(app):
     """

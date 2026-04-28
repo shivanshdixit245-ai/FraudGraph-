@@ -7,7 +7,7 @@ from sklearn.metrics import (
     roc_auc_score, f1_score, precision_score, 
     recall_score, accuracy_score, confusion_matrix, roc_curve
 )
-from ..ml.inference import score_all_nodes
+from ml.inference import score_all_nodes
 
 router = APIRouter()
 

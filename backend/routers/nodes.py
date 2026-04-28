@@ -1,8 +1,8 @@
 import pandas as pd
 from datetime import datetime
 from fastapi import APIRouter, HTTPException, Request, Query
-from ..schemas.node import NodeProfile, TransactionHistory, TransactionEntry, DriftResult
-from ..ml.drift_detector import detect_drift
+from schemas.node import NodeProfile, TransactionHistory, TransactionEntry, DriftResult
+from ml.drift_detector import detect_drift
 
 router = APIRouter()
 

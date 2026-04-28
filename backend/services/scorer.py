@@ -2,9 +2,9 @@ import torch
 import numpy as np
 import networkx as nx
 from datetime import datetime
-from ..ml.inference import score_all_nodes
-from ..ml.centrality import get_node_centrality_map
-from ..ml.drift_detector import detect_all_drift
+from ml.inference import score_all_nodes
+from ml.centrality import get_node_centrality_map
+from ml.drift_detector import detect_all_drift
 
 class ScorerService:
     """

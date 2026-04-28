@@ -1,6 +1,6 @@
 from datetime import datetime
 from fastapi import APIRouter, HTTPException, Request, Query
-from ..schemas.cluster import ClusterListResponse, ClusterDetailResponse, ClusterListItem
+from schemas.cluster import ClusterListResponse, ClusterDetailResponse, ClusterListItem
 
 router = APIRouter()
 

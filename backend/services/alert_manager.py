@@ -2,7 +2,7 @@ import threading
 from uuid import uuid4
 from datetime import datetime, timedelta
 from typing import List, Optional
-from ..schemas.alert import FraudAlert
+from schemas.alert import FraudAlert
 
 class AlertManager:
     """

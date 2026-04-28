@@ -3,8 +3,8 @@ import time
 import asyncio
 import requests as req_lib
 from fastapi import APIRouter, HTTPException, Request
-from ..schemas.chat import ChatRequest, ChatResponse
-from ..ml.explainer import explain_node
+from schemas.chat import ChatRequest, ChatResponse
+from ml.explainer import explain_node
 
 router = APIRouter()
 

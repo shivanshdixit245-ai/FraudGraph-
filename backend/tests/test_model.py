@@ -1,7 +1,7 @@
 import pytest
 import torch
 import numpy as np
-from ..ml.model import FraudGNN, score_nodes
+from ml.model import FraudGNN, score_nodes
 from torch_geometric.data import Data
 
 def test_forward_shape():

@@ -1,6 +1,6 @@
 from datetime import datetime
 from fastapi import APIRouter, HTTPException, Request
-from ..ml.explainer import explain_node
+from ml.explainer import explain_node
 
 router = APIRouter()
 

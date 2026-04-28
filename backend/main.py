@@ -7,23 +7,23 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
 # Import ML modules
-from .ml.model import FraudGNN, load_model
-from .ml.trainer import train
-from .ml.inference import score_all_nodes
-from .ml.entity_resolver import resolve_entities
-from .ml.centrality import get_node_centrality_map, compute_centrality
-from .ml.drift_detector import detect_all_drift
-from .ml.explainer import build_explainer
-from .ml.inference import get_top_fraud_nodes
+from ml.model import FraudGNN, load_model
+from ml.trainer import train
+from ml.inference import score_all_nodes
+from ml.entity_resolver import resolve_entities
+from ml.centrality import get_node_centrality_map, compute_centrality
+from ml.drift_detector import detect_all_drift
+from ml.explainer import build_explainer
+from ml.inference import get_top_fraud_nodes
 
 # Import Routers
-from .routers import (
+from routers import (
     health, graph, nodes, explain, 
     clusters, centrality, replay, metrics, chat, demo
 )
-from .services.cache import TTLCache
-from .services.alert_manager import AlertManager
-from .services.scorer import ScorerService
+from services.cache import TTLCache
+from services.alert_manager import AlertManager
+from services.scorer import ScorerService
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -129,7 +129,7 @@ async def lifespan(app: FastAPI):
     app.state.explainer = build_explainer(app.state.model, data)
     
     # 7. Compute Model Metrics
-    from .routers.metrics import compute_model_metrics
+    from routers.metrics import compute_model_metrics
     print("Computing model performance metrics...")
     app.state.metrics = compute_model_metrics(app.state.model, data)
     
@@ -145,7 +145,7 @@ async def lifespan(app: FastAPI):
     app.state.scorer.drift_map = app.state.drift_map
     
     # 9. Start Background Tasks
-    from .services.background import start_background_tasks
+    from services.background import start_background_tasks
     start_background_tasks(app)
     
     # 9. Initialize Alerts

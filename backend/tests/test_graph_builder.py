@@ -2,7 +2,7 @@ import pytest
 import pandas as pd
 import torch
 import os
-from ..ml.graph_builder import build_fraud_graph
+from ml.graph_builder import build_fraud_graph
 
 def test_returns_pyg_data(tmp_path):
     # Create mock CSV files

@@ -2,7 +2,7 @@ import torch
 import shap
 import numpy as np
 import time
-from .model import score_nodes
+from ml.model import score_nodes
 
 # Global cache for the explainer object
 _EXPLAINER_CACHE = None
