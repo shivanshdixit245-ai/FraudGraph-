@@ -48,32 +48,44 @@ async def websocket_endpoint(websocket: WebSocket):
     clusters = getattr(app.state, 'clusters', [])
     centrality_map = getattr(app.state, 'centrality_map', {})
     
-    if data is None or scores is None:
+    demo_nodes = getattr(app.state, 'demo_nodes', None)
+    demo_edges = getattr(app.state, 'demo_edges', None)
+    
+    if data is None and demo_nodes is None:
         await websocket.send_json({"type": "error", "message": "Graph data not initialized"})
-        active_connections.remove(websocket)
+        if websocket in active_connections:
+            active_connections.remove(websocket)
         return
 
-    # Prepare NetworkX graph for layout (one-time if not cached)
-    # We rebuild a simple graph if needed for the layout logic
+    # Prepare graph structure for layout and payload
     nx_graph = nx.Graph()
-    edge_index = data.edge_index.cpu().numpy()
-    for i in range(edge_index.shape[1]):
-        nx_graph.add_edge(int(edge_index[0, i]), int(edge_index[1, i]))
+    edges_payload = []
+
+    if data is not None:
+        edge_index = data.edge_index.cpu().numpy()
+        for i in range(edge_index.shape[1]):
+            src, dst = int(edge_index[0, i]), int(edge_index[1, i])
+            nx_graph.add_edge(src, dst)
+            edges_payload.append({
+                "source": src,
+                "target": dst,
+                "weight": 1.0,
+                "shared_device": False,
+                "shared_ip": False
+            })
+    elif demo_edges is not None:
+        for edge in demo_edges:
+            src, dst = int(edge["source"]), int(edge["target"])
+            nx_graph.add_edge(src, dst)
+            edges_payload.append({
+                "source": src,
+                "target": dst,
+                "weight": float(edge.get("weight", 1.0)),
+                "shared_device": False,
+                "shared_ip": False
+            })
     
     pos_map = get_node_positions(nx_graph)
-    
-    # Pre-build edge list
-    # We'll assume edge weight is 1.0 for simplicity in this stream
-    edges_payload = []
-    for i in range(edge_index.shape[1]):
-        src, dst = int(edge_index[0, i]), int(edge_index[1, i])
-        edges_payload.append({
-            "source": src,
-            "target": dst,
-            "weight": 1.0,
-            "shared_device": False, # Mock properties
-            "shared_ip": False
-        })
 
     try:
         while True:

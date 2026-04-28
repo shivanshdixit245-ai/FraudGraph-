@@ -51,6 +51,8 @@ async def lifespan(app: FastAPI):
         app.state.centrality_map = demo_data["centrality_map"]
         app.state.drift_map = demo_data["drift_map"]
         app.state.metrics = demo_data["metadata"]["metrics"]
+        app.state.demo_nodes = demo_data["nodes"]
+        app.state.demo_edges = demo_data["edges"]
         
         # Load graph structure if possible
         if os.path.exists(data_path):
@@ -167,9 +169,9 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "http://localhost:5175",
-        "https://fraudgraph.vercel.app",
-        "https://*.vercel.app"
+        "https://fraudgraph.vercel.app"
     ],
+    allow_origin_regex="https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
