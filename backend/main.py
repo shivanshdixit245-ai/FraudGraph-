@@ -37,8 +37,8 @@ async def lifespan(app: FastAPI):
     model_path = "backend/models/fraudgnn_v1.pt"
     demo_scores_path = "data/processed/demo_scores.json"
 
-    # Check if we should run in DEMO_SCORES mode (Render free tier / missing model)
-    if not os.path.exists(model_path) and os.path.exists(demo_scores_path):
+    # Check if we should run in DEMO_SCORES mode (Render free tier / missing data / missing model)
+    if (not os.path.exists(data_path) or not os.path.exists(model_path)) and os.path.exists(demo_scores_path):
         import json
         print("⚠️ Running in DEMO_SCORES mode (Model missing or memory constrained)")
         with open(demo_scores_path, "r") as f:
