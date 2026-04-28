@@ -32,8 +32,45 @@ async def lifespan(app: FastAPI):
     app.state.alert_manager = AlertManager()
     print("Initializing FraudGraph Backend...")
     
-    # 1. Load graph data
+    # 1. Load or Generate Graph Data
     data_path = "data/processed/graph_data.pt"
+    model_path = "backend/models/fraudgnn_v1.pt"
+    demo_scores_path = "data/processed/demo_scores.json"
+
+    # Check if we should run in DEMO_SCORES mode (Render free tier / missing model)
+    if not os.path.exists(model_path) and os.path.exists(demo_scores_path):
+        import json
+        print("⚠️ Running in DEMO_SCORES mode (Model missing or memory constrained)")
+        with open(demo_scores_path, "r") as f:
+            demo_data = json.load(f)
+        
+        # Hydrate state from exported demo data
+        app.state.scores = demo_data["scores"]
+        app.state.clusters = demo_data["clusters"]
+        app.state.centrality_map = demo_data["centrality_map"]
+        app.state.drift_map = demo_data["drift_map"]
+        app.state.metrics = demo_data["metrics"]
+        
+        # Load graph structure if possible
+        if os.path.exists(data_path):
+            checkpoint = torch.load(data_path)
+            app.state.data = checkpoint['data']
+            app.state.scaler = checkpoint['scaler']
+            
+            # Build NX graph from loaded data
+            G = nx.Graph()
+            edge_index = app.state.data.edge_index.cpu().numpy()
+            for i in range(edge_index.shape[1]):
+                G.add_edge(int(edge_index[0, i]), int(edge_index[1, i]))
+            app.state.nx_graph = G
+        else:
+            print("Warning: graph_data.pt missing. UI will use fallback graph layout.")
+
+        print(f"FraudGraph ready in DEMO_SCORES mode — {len(app.state.scores)} nodes cached.")
+        yield
+        return
+
+    # --- STANDARD FULL MODE ---
     if not os.path.exists(data_path):
         raise FileNotFoundError(f"Processed graph data not found at {data_path}. Run preprocess.py first.")
     
@@ -43,10 +80,14 @@ async def lifespan(app: FastAPI):
     app.state.scaler = checkpoint['scaler']
     
     # 2. Load or Train model
-    model_path = "backend/models/fraudgnn_v1.pt"
     if os.path.exists(model_path):
         app.state.model = load_model(model_path, in_channels=data.num_node_features)
     else:
+        # Check if we are on Render (heuristic) or have low RAM
+        if os.environ.get("RENDER"):
+             print("Model checkpoint missing and on Render. Cannot train (OOM risk).")
+             raise RuntimeError("Model missing on Render. Please commit demo_scores.json")
+        
         print("Model checkpoint missing. Training from scratch...")
         model, best_auc, history = train(data)
         app.state.model = model
@@ -69,9 +110,6 @@ async def lifespan(app: FastAPI):
     
     # 5. Build Entity Clusters, Centrality, and Drift
     print("Running graph analysis algorithms...")
-    # For entity resolution and drift, we'd normally need the raw transactions_df.
-    # For the demo, we'll assume a dummy df or empty if not present.
-    # In a real scenario, we'd load train_transaction.csv here.
     try:
         transactions_df = pd.read_csv("data/raw/train_transaction.csv", nrows=10000)
     except:
@@ -125,8 +163,13 @@ app = FastAPI(title="FraudGraph API", lifespan=lifespan)
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://localhost:5175",
+        "https://fraudgraph.vercel.app",
+        "https://*.vercel.app"
+    ],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
