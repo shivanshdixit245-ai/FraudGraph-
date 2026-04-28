@@ -33,9 +33,10 @@ async def lifespan(app: FastAPI):
     print("Initializing FraudGraph Backend...")
     
     # 1. Load or Generate Graph Data
-    data_path = "data/processed/graph_data.pt"
-    model_path = "backend/models/fraudgnn_v1.pt"
-    demo_scores_path = "data/processed/demo_scores.json"
+    # Path relative to backend root
+    data_path = "data/processed/graph_data.pt" 
+    model_path = "models/fraudgnn_v1.pt"
+    demo_scores_path = "data/demo_scores.json"
 
     # Check if we should run in DEMO_SCORES mode (Render free tier / missing data / missing model)
     if (not os.path.exists(data_path) or not os.path.exists(model_path)) and os.path.exists(demo_scores_path):
