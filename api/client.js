@@ -1,7 +1,16 @@
 import axios from 'axios';
 
+const getBaseURL = () => {
+  const envURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+  // Hard correction for stale environment variables in deployment
+  if (envURL.includes('fraudgraph-api.onrender.com')) {
+    return 'https://fraudgraph-mxz6.onrender.com';
+  }
+  return envURL;
+};
+
 const client = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000',
+  baseURL: getBaseURL(),
   timeout: 10000,
 });
 

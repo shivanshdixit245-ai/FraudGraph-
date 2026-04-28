@@ -1,7 +1,16 @@
 import { useEffect, useRef } from 'react';
 import useStore, { MOCK_GRAPH } from '../store';
 
-const WS_URL = import.meta.env.VITE_WS_URL || 'ws://localhost:8000/ws/graph';
+const getWSURL = () => {
+  const envURL = import.meta.env.VITE_WS_URL || 'ws://localhost:8000/ws/graph';
+  // Hard correction for stale environment variables in deployment
+  if (envURL.includes('fraudgraph-api.onrender.com')) {
+    return 'wss://fraudgraph-mxz6.onrender.com/ws/graph';
+  }
+  return envURL;
+};
+
+const WS_URL = getWSURL();
 
 export default function useWebSocket() {
   const setWsStatus = useStore((state) => state.setWsStatus);
